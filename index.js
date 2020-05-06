@@ -3,10 +3,10 @@ const app = express();
 
 app.use(express.json());
 
-const courses = [
-  { id: 1, name: 'course1'},
-  { id: 2, name: 'course2'},
-  { id: 3, name: 'course3'},
+const genres = [
+  { id: 1, name: 'action'},
+  { id: 2, name: 'comedy'},
+  { id: 3, name: 'romance'},
 ];
 
 app.get('/', (req, res) => {
@@ -16,6 +16,14 @@ app.get('/', (req, res) => {
 app.get('/api/genres', (req, res) => {
   res.send(genres);
 });
+
+app.get('/api/genres/:id', (req, res) => {
+  const genre = genres.find(c => c.id === parseInt(req.params.id));
+  if (!genre) return res.status(404).send('The course with the given ID was not found');
+  res.send(genre);
+});
+
+
 
 
 
