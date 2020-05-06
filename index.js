@@ -39,6 +39,19 @@ app.post('/api/genres', (req, res) => {
   res.send(genre);
 });
 
+app.put('/api/genres/:id', (req, res) => {
+  const genre = genres.find(c => c.id === parseInt(req.params.id));
+
+  const { error } = validateGenre(req.body);
+
+  if (error) {
+    return res.status(400).send(result.error.details[0].message);
+  }
+
+  genre.name = req.body.name;
+  res.send(genre);
+});
+
 
 
 const port = process.env.PORT || 3000;
